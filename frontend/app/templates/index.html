@@ -37,9 +37,7 @@
                     <h3 class="fw-bold"><a class="nav-link" href="{{ '/note/%s' % (note['id']) }}">{{ note["id"] }} - {{ note["title"] }}</a></h3>
                 </div>
                 <div class="col-2 text-end">
-                    <form action="{{ url_for('delete_note', pk=note['id']) }}" method="POST">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    <a href="{{ url_for('get_delete_confirm', pk=note['id']) }}" class="btn btn-danger">Delete</a>
                 </div>
                 <div class="col-12">
                     <p><small>{{ note["subtitle"] }}</small></p>

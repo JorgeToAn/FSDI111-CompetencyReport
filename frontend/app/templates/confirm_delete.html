@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ note["title"] }}{% endblock title %}
+{% block title %}Delete {{ note["title"] }}{% endblock title %}
 
 {% block content %}
 <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
@@ -23,20 +23,18 @@
 </nav>
 
 <div class="container my-4 py-4 px-2" style="background-color: #fff176; border-radius: 20px">
-    <h1 class="fw-bold text-center">{{ note["id"] }} - {{ note["title"] }}</h1>
-    <h4 class="text-center">{{ note["subtitle"] }}</h4>
-    <hr style="border-top: 3px solid #242424">
-    <p>{{ note["body"] }}</p>
-    <p>Created on: {{ note["created_on"] }}</p>
+    <h1 class="fw-bold text-center">Are you sure you want to delete '{{ note["title"] }}'?</h1>
 </div>
 
 <div class="container">
     <div class="row">
         <div class="col-auto">
-            <a class="btn btn-info" href="{{ '/update/%s' % (note['id']) }}">Update</a>
+            <form action="{{ url_for('delete_note', pk=note['id']) }}" method="POST">
+                <button type="submit" class="btn btn-danger">Delete it</button>
+            </form>
         </div>
         <div class="col-auto">
-            <a href="{{ url_for('get_delete_confirm', pk=note['id']) }}" class="btn btn-danger">Delete</a>
+            <a href="/" class="btn btn-success">Cancel</a>
         </div>
     </div>
 </div>

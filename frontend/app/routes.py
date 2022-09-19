@@ -64,6 +64,14 @@ def update_note(pk):
         return render_template("fail.html")
 
 
+@app.get("/delete/<pk>")
+def get_delete_confirm(pk):
+    url = "%s/%s" % (BACKEND_URL, pk)
+    response = requests.get(url)
+    note_data = response.json().get("note")
+    return render_template("confirm_delete.html", note=note_data[0])
+
+
 @app.post("/delete/<pk>")
 def delete_note(pk):
     url = "%s/%s" % (BACKEND_URL, pk)
