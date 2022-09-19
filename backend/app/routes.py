@@ -18,7 +18,7 @@ def get_notes():
     return response
 
 
-@app.get("/note/<int:pk>")
+@app.get("/notes/<int:pk>")
 def get_note(pk):
     response = dict(RESPONSE)
     response["note"] = notes.select_by_id(pk)
@@ -34,14 +34,14 @@ def create_note():
 
 
 # --------- PUT ----------
-@app.put("/note/<int:pk>")
+@app.put("/notes/<int:pk>")
 def update_note(pk):
     note_body = request.json
     notes.update(note_body, pk)
     return "", 204
 
 
-@app.delete("/note/<int:pk>")
+@app.delete("/notes/<int:pk>")
 def delete_note(pk):
     notes.delete(pk)
     return "", 204
