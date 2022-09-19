@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Noter</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse position-absolute end-0 me-5" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/create">Create</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container text-light">
+    <h1>My Notes</h1>
+    <p>Welcome to Noter, go ahead and create a new note!</p>
+    <p>Click on a note's title to view it, you can also update it there.</p>
+    <p>If you no longer need a note, you can delete it.</p>
+</div>
+
+<div class="container">    
+    {% for note in notes %}
+        <div class="container my-3 py-4 px-2" style="background-color: #fff176; border-radius: 15px;">
+            <div class="row">
+                <div class="col-10">
+                    <h3 class="fw-bold"><a class="nav-link" href="{{ '/note/%s' % (note['id']) }}">{{ note["id"] }} - {{ note["title"] }}</a></h3>
+                </div>
+                <div class="col-2 text-end">
+                    <form action="{{ url_for('delete_note', pk=note['id']) }}" method="POST">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+                <div class="col-12">
+                    <p><small>{{ note["subtitle"] }}</small></p>
+                </div>
+                <div class="col-12">
+                    <p>{{ note["body"] }}</p>
+                    <p>Created on: {{ note["created_on"] }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}
